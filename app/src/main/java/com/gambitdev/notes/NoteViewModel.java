@@ -8,7 +8,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-class NoteViewModel extends AndroidViewModel {
+public class NoteViewModel extends AndroidViewModel {
 
     private NotesRepository repository;
     private LiveData<List<Note>> notes;
@@ -32,7 +32,7 @@ class NoteViewModel extends AndroidViewModel {
         repository.deleteNote(id);
     }
 
-    void updateNote(int id , String title , String content) {
-        repository.updateNote(id , title , content);
+    void updateNote(int id , String title , String content , String timestamp) {
+        repository.updateNote(id , title , content , timestamp);
     }
 }

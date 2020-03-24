@@ -16,9 +16,21 @@ class Note {
     @ColumnInfo (name = "content")
     private String content;
 
-    Note(String title, String content) {
+    @ColumnInfo (name = "timestamp")
+    private String timestamp;
+
+    Note(String title, String content , String timestamp) {
         this.title = title;
         this.content = content;
+        this.timestamp = timestamp;
+    }
+
+    String getTimestamp() {
+        return timestamp;
+    }
+
+    void setTimestamp(String timestamp) {
+        this.timestamp = timestamp;
     }
 
     int getId() {

@@ -31,8 +31,8 @@ class NotesRepository {
                 noteDao.deleteNote(id));
     }
 
-    void updateNote(int id , String title , String content) {
+    void updateNote(int id , String title , String content , String timestamp) {
         NotesDatabase.databaseWriteExecutor.execute(() ->
-                noteDao.updateNote(id , title , content));
+                noteDao.updateNote(id , title , content , timestamp));
     }
 }

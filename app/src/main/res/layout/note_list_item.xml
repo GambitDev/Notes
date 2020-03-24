@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginTop="8dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <View
+        android:id="@+id/start_view"
+        android:layout_width="8dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="@id/note_title_tv"
+        app:layout_constraintBottom_toBottomOf="@id/note_title_tv"
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@color/colorPrimary"/>
+
+    <TextView
+        android:id="@+id/note_title_tv"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        app:layout_constraintStart_toEndOf="@id/start_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:text="Note Title"
+        style="@android:style/TextAppearance.Material.Headline"
+        android:padding="8dp"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
