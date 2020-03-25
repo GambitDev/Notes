@@ -11,8 +11,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="AllowBackup,GoogleAppIndexingWarning">
-        <activity android:name=".AddNoteActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity android:name=".ShowNoteActivity"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".AddNoteActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

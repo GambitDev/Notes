@@ -11,10 +11,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NotesAdapter.OnItemClickListener {
 
     private NoteViewModel viewModel;
     private static final int ADD_NOTE_REQUEST_CODE = 1;
+    private static final int SHOW_NOTE_REQUEST_CODE = 2;
+    static final int EDIT_NOTE_RESULT_CODE = 3;
+    static final int DELETE_NOTE_RESULT_CODE = 4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView recyclerView = findViewById(R.id.rv);
         NotesAdapter adapter = new NotesAdapter();
+        adapter.setListener(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -48,6 +52,30 @@ public class MainActivity extends AppCompatActivity {
                 Note newNote = new Note(noteTitle , noteContent , noteTimestamp);
                 viewModel.insertNote(newNote);
             }
+        } else if (requestCode == SHOW_NOTE_REQUEST_CODE && resultCode == DELETE_NOTE_RESULT_CODE) {
+            if (data != null) {
+                int idForDeletion = data.getIntExtra("id", -1);
+                viewModel.deleteNote(idForDeletion);
+            }
+        } else if (requestCode == SHOW_NOTE_REQUEST_CODE && resultCode == EDIT_NOTE_RESULT_CODE) {
+            if (data != null) {
+                String newTitle = data.getStringExtra("new_title");
+                String newContent = data.getStringExtra("new_content");
+                String newTimestamp = data.getStringExtra("new_timestamp");
+                int idForUpdate = data.getIntExtra("id" , -1);
+                viewModel.updateNote(idForUpdate , newTitle , newContent , newTimestamp);
+            }
         }
+    }
+
+    @Override
+    public void onClick(Note note) {
+        Intent intent = new Intent(MainActivity.this , ShowNoteActivity.class);
+        intent.putExtra("id" , note.getId());
+        intent.putExtra("title" , note.getTitle());
+        intent.putExtra("content" , note.getContent());
+        intent.putExtra("timestamp" , note.getTimestamp());
+
+        startActivityForResult(intent , SHOW_NOTE_REQUEST_CODE);
     }
 }

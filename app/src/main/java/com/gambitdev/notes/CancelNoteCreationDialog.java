@@ -8,7 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
-public class CancelDialog extends DialogFragment {
+public class CancelNoteCreationDialog extends DialogFragment {
 
     private OnDialogButtonClick listener;
 
@@ -23,14 +23,14 @@ public class CancelDialog extends DialogFragment {
         builder.setTitle(R.string.cancel_note_dialog_title)
                 .setMessage(R.string.cancel_note_dialog_message)
                 .setPositiveButton(R.string.cancel_note_dialog_positive, (dialog, which) ->
-                        listener.onPositiveButtonClicked(CancelDialog.this))
+                        listener.onPositiveButtonClicked(CancelNoteCreationDialog.this))
                 .setNegativeButton(R.string.cancel_note_dialog_negative , (dialog , which) ->
-                        listener.onNegativeButtonClicked(CancelDialog.this));
+                        listener.onNegativeButtonClicked(CancelNoteCreationDialog.this));
         return builder.create();
     }
 
     public interface OnDialogButtonClick {
-        void onPositiveButtonClicked(CancelDialog dialog);
-        void onNegativeButtonClicked(CancelDialog dialog);
+        void onPositiveButtonClicked(CancelNoteCreationDialog dialog);
+        void onNegativeButtonClicked(CancelNoteCreationDialog dialog);
     }
 }

@@ -1,9 +1,7 @@
 package com.gambitdev.notes;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.DialogFragment;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -16,7 +14,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
-public class AddNoteActivity extends AppCompatActivity implements CancelDialog.OnDialogButtonClick {
+public class AddNoteActivity extends AppCompatActivity implements CancelNoteCreationDialog.OnDialogButtonClick {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +45,7 @@ public class AddNoteActivity extends AppCompatActivity implements CancelDialog.O
 
     @Override
     public void onBackPressed() {
-        CancelDialog dialog = new CancelDialog();
+        CancelNoteCreationDialog dialog = new CancelNoteCreationDialog();
         dialog.setListener(this);
         dialog.show(getSupportFragmentManager() , "cancel_dialog");
     }
@@ -59,13 +57,13 @@ public class AddNoteActivity extends AppCompatActivity implements CancelDialog.O
     }
 
     @Override
-    public void onPositiveButtonClicked(CancelDialog dialog) {
+    public void onPositiveButtonClicked(CancelNoteCreationDialog dialog) {
         dialog.dismiss();
         finish();
     }
 
     @Override
-    public void onNegativeButtonClicked(CancelDialog dialog) {
+    public void onNegativeButtonClicked(CancelNoteCreationDialog dialog) {
         dialog.dismiss();
     }
 }
