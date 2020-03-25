@@ -18,12 +18,15 @@ import java.util.Locale;
 public class ShowNoteActivity extends AppCompatActivity implements DeleteNoteDialog.OnDialogButtonClick ,
         SaveChangesDialog.OnDialogButtonClick {
 
-    EditText noteTitleEt;
-    EditText noteContentEt;
+    private EditText noteTitleEt;
+    private EditText noteContentEt;
+    private ImageButton enableEditButton;
+    private Button editButton;
 
     //used to identify between back button
     //to edit button call for save changes dialog
     boolean isBackButtonCall;
+    boolean isEditMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +36,13 @@ public class ShowNoteActivity extends AppCompatActivity implements DeleteNoteDia
         TextView timestampTv = findViewById(R.id.timestamp_tv);
         noteTitleEt = findViewById(R.id.note_title_et);
         noteContentEt = findViewById(R.id.note_content_et);
-        Button editButton = findViewById(R.id.edit_note_button);
+        editButton = findViewById(R.id.edit_note_button);
+        enableEditButton = findViewById(R.id.enable_edit_button);
+
+        isEditMode = getIntent().getBooleanExtra("edit_mode" , false);
+        if (isEditMode) {
+            editMode();
+        }
 
         String title = getIntent().getStringExtra("title");
         String content = getIntent().getStringExtra("content");
@@ -43,12 +52,9 @@ public class ShowNoteActivity extends AppCompatActivity implements DeleteNoteDia
         noteTitleEt.setText(title);
         noteContentEt.setText(content);
 
-        ImageButton enableEditButton = findViewById(R.id.enable_edit_button);
         enableEditButton.setOnClickListener(v -> {
-            enableEditButton.setImageDrawable(getDrawable(R.drawable.ic_edit_pressed));
-            editButton.setVisibility(View.VISIBLE);
-            noteTitleEt.setEnabled(true);
-            noteContentEt.setEnabled(true);
+            isEditMode = true;
+            editMode();
         });
 
         ImageButton deleteNoteButton = findViewById(R.id.delete_note_button);
@@ -63,8 +69,12 @@ public class ShowNoteActivity extends AppCompatActivity implements DeleteNoteDia
 
     @Override
     public void onBackPressed() {
-        isBackButtonCall = true;
-        confirmSaveChanges();
+        if (!isEditMode) {
+            finish();
+        } else {
+            isBackButtonCall = true;
+            confirmSaveChanges();
+        }
     }
 
     //delete note dialog interface ---
@@ -115,5 +125,12 @@ public class ShowNoteActivity extends AppCompatActivity implements DeleteNoteDia
         SaveChangesDialog dialog = new SaveChangesDialog();
         dialog.setListener(this);
         dialog.show(getSupportFragmentManager() , "save_changes_dialog");
+    }
+
+    void editMode() {
+        enableEditButton.setImageDrawable(getDrawable(R.drawable.ic_edit_pressed));
+        editButton.setVisibility(View.VISIBLE);
+        noteTitleEt.setEnabled(true);
+        noteContentEt.setEnabled(true);
     }
 }

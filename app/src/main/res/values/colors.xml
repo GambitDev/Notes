@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#008577</color>
-    <color name="colorPrimaryDark">#00574B</color>
-    <color name="colorAccent">#D81B60</color>
+    <color name="colorPrimary">#432A80</color>
+    <color name="colorPrimaryDark">#521E81</color>
+    <color name="colorAccent">#593CAA</color>
+    <color name="note_content_bg">#F4ECFF</color>
+
+    <color name="note_button_bar_text">#614A96</color>
+    <color name="note_button_bar_bg">#E2DCF3</color>
 </resources>

@@ -11,13 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
-public class MainActivity extends AppCompatActivity implements NotesAdapter.OnItemClickListener {
+public class MainActivity extends AppCompatActivity implements NotesAdapter.OnItemClickListener ,
+        DeleteNoteDialog.OnDialogButtonClick {
 
     private NoteViewModel viewModel;
     private static final int ADD_NOTE_REQUEST_CODE = 1;
     private static final int SHOW_NOTE_REQUEST_CODE = 2;
     static final int EDIT_NOTE_RESULT_CODE = 3;
     static final int DELETE_NOTE_RESULT_CODE = 4;
+
+    //used for deleting notes
+    private int noteToDeleteID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +58,8 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.OnIt
             }
         } else if (requestCode == SHOW_NOTE_REQUEST_CODE && resultCode == DELETE_NOTE_RESULT_CODE) {
             if (data != null) {
-                int idForDeletion = data.getIntExtra("id", -1);
-                viewModel.deleteNote(idForDeletion);
+                noteToDeleteID = data.getIntExtra("id", -1);
+                viewModel.deleteNote(noteToDeleteID);
             }
         } else if (requestCode == SHOW_NOTE_REQUEST_CODE && resultCode == EDIT_NOTE_RESULT_CODE) {
             if (data != null) {
@@ -69,13 +73,45 @@ public class MainActivity extends AppCompatActivity implements NotesAdapter.OnIt
     }
 
     @Override
-    public void onClick(Note note) {
+    public void onReadMoreClick(Note note) {
         Intent intent = new Intent(MainActivity.this , ShowNoteActivity.class);
         intent.putExtra("id" , note.getId());
         intent.putExtra("title" , note.getTitle());
         intent.putExtra("content" , note.getContent());
         intent.putExtra("timestamp" , note.getTimestamp());
+        intent.putExtra("edit_mode" , false);
 
         startActivityForResult(intent , SHOW_NOTE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onEditButtonClick(Note note) {
+        Intent intent = new Intent(MainActivity.this , ShowNoteActivity.class);
+        intent.putExtra("id" , note.getId());
+        intent.putExtra("title" , note.getTitle());
+        intent.putExtra("content" , note.getContent());
+        intent.putExtra("timestamp" , note.getTimestamp());
+        intent.putExtra("edit_mode" , true);
+
+        startActivityForResult(intent , SHOW_NOTE_REQUEST_CODE);
+    }
+
+    @Override
+    public void onDeleteButtonClick(Note note) {
+        noteToDeleteID = note.getId();
+        DeleteNoteDialog dialog = new DeleteNoteDialog();
+        dialog.setListener(this);
+        dialog.show(getSupportFragmentManager() , "delete_note");
+    }
+
+    @Override
+    public void onPositiveButtonClicked(DeleteNoteDialog dialog) {
+        viewModel.deleteNote(noteToDeleteID);
+        dialog.dismiss();
+    }
+
+    @Override
+    public void onNegativeButtonClicked(DeleteNoteDialog dialog) {
+        dialog.dismiss();
     }
 }

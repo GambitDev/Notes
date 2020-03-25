@@ -21,5 +21,8 @@
     <string name="save_changes_dialog_title">Confirm Changes</string>
     <string name="save_changes_dialog_message">Save changes to note?</string>
     <string name="save_changes_dialog_positive">Save Changes</string>
-    <string name="save_changes_dialog_negative">Cancel</string>
+    <string name="save_changes_dialog_negative">No</string>
+
+    <string name="read_more">Read More…</string>
+
 </resources>

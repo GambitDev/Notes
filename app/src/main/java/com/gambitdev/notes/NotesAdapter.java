@@ -3,6 +3,8 @@ package com.gambitdev.notes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -31,10 +33,24 @@ class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull NotesViewHolder holder, int position) {
         Note current = noteList.get(position);
-        String title = current.getTitle();
-        holder.noteTitleTv.setText(title);
-        holder.noteTitleTv.setOnClickListener(v ->
-                listener.onClick(noteList.get(holder.getAdapterPosition())));
+        holder.noteTitle.setText(current.getTitle());
+
+        String content = current.getContent();
+        if (content.length() > 100) {
+            String shortContent = content.substring(0 , 100) + "...";
+            holder.noteContent.setText(shortContent);
+        } else {
+            holder.noteContent.setText(content);
+        }
+
+        holder.readMoreButton.setOnClickListener(v ->
+                listener.onReadMoreClick(current));
+
+        holder.deleteButton.setOnClickListener(v ->
+                listener.onDeleteButtonClick(current));
+
+        holder.editButton.setOnClickListener(v ->
+                listener.onEditButtonClick(current));
     }
 
     @Override
@@ -52,15 +68,23 @@ class NotesAdapter extends RecyclerView.Adapter<NotesAdapter.NotesViewHolder> {
 
     class NotesViewHolder extends RecyclerView.ViewHolder {
 
-        TextView noteTitleTv;
+        Button readMoreButton;
+        ImageButton editButton , deleteButton;
+        TextView noteTitle , noteContent;
 
         NotesViewHolder(@NonNull View itemView) {
             super(itemView);
-            noteTitleTv = itemView.findViewById(R.id.note_title_tv);
+            readMoreButton = itemView.findViewById(R.id.read_more_button);
+            editButton = itemView.findViewById(R.id.edit_button);
+            deleteButton = itemView.findViewById(R.id.delete_button);
+            noteTitle = itemView.findViewById(R.id.card_title);
+            noteContent = itemView.findViewById(R.id.card_content);
         }
     }
 
     interface OnItemClickListener {
-        void onClick(Note note);
+        void onReadMoreClick(Note note);
+        void onEditButtonClick(Note note);
+        void onDeleteButtonClick(Note note);
     }
 }
