@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">פתקים</string>
+    <string name="cancel_note_dialog_message">השינויים לא ישמרו!</string>
+    <string name="cancel_note_dialog_negative">לא</string>
+    <string name="cancel_note_dialog_positive">כן</string>
+    <string name="cancel_note_dialog_title">לבטל יצירת פתק?</string>
+    <string name="create_note">יצירת פתק חדש</string>
+    <string name="delete_note">מחיקת פתק</string>
+    <string name="delete_note_dialog_message">האם אתה בטוח שברצונך למחוק את הפתק?</string>
+    <string name="delete_note_dialog_negative">ביטול</string>
+    <string name="delete_note_dialog_positive">מחיקה</string>
+    <string name="delete_note_dialog_title">למחוק פתק?</string>
+    <string name="edit_note">עריכת פתק</string>
+    <string name="note_content">תוכן הפתק</string>
+    <string name="note_title">כותרת</string>
+    <string name="read_more">קרא עוד…</string>
+    <string name="save_changes_dialog_message">שימרת שינויים לפתק?</string>
+    <string name="save_changes_dialog_negative">לא</string>
+    <string name="save_changes_dialog_positive">שמירה</string>
+    <string name="save_changes_dialog_title">שמירה</string>
+</resources>
